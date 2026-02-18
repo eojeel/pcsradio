@@ -16,6 +16,7 @@ let volume = 50;
 let playerReady = false;
 let pendingPlay = false;  // queued play click before player was ready
 let lastAdSkip = 0;       // timestamp guard to prevent reload loop
+let adWatcher = null;     // interval id for mute-until-stream polling
 
 // ---- DOM Elements ----
 const playPauseBtn = document.getElementById('play-pause');
@@ -59,8 +60,27 @@ function onPlayerReady() {
   setStatus('ready', 'Ready');
   if (pendingPlay) {
     pendingPlay = false;
+    muteUntilStream();
     player.playVideo();
   }
+}
+
+// Mute immediately, then poll every 300ms until getVideoData() confirms the
+// actual stream is playing (not an ad), then restore volume.
+// This prevents any ad audio being heard even for a fraction of a second.
+function muteUntilStream() {
+  const expectedId = GENRES[currentGenre].videoId;
+  player.mute();
+  clearInterval(adWatcher);
+  adWatcher = setInterval(() => {
+    const data = player.getVideoData();
+    if (data && data.video_id === expectedId) {
+      clearInterval(adWatcher);
+      adWatcher = null;
+      player.unMute();
+      player.setVolume(volume);
+    }
+  }, 300);
 }
 
 function onPlayerStateChange(event) {
@@ -116,8 +136,12 @@ function togglePlayPause() {
   }
 
   if (isPlaying) {
+    clearInterval(adWatcher);
+    adWatcher = null;
+    player.unMute();
     player.pauseVideo();
   } else {
+    muteUntilStream();
     player.playVideo();
   }
 }
@@ -133,7 +157,8 @@ function switchGenre(genre) {
     btn.classList.toggle('active', btn.dataset.genre === genre);
   });
 
-  // Load new stream
+  // Mute until the new stream is confirmed, then load it
+  muteUntilStream();
   player.loadVideoById(GENRES[genre].videoId);
   setStatus('buffering', 'Buffering');
 }
