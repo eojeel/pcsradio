@@ -14,6 +14,8 @@ let currentGenre = 'lofi';
 let isPlaying = false;
 let volume = 50;
 let playerReady = false;
+let pendingPlay = false;  // queued play click before player was ready
+let lastAdSkip = 0;       // timestamp guard to prevent reload loop
 
 // ---- DOM Elements ----
 const playPauseBtn = document.getElementById('play-pause');
@@ -55,9 +57,30 @@ function onPlayerReady() {
   playerReady = true;
   player.setVolume(volume);
   setStatus('ready', 'Ready');
+  if (pendingPlay) {
+    pendingPlay = false;
+    player.playVideo();
+  }
 }
 
 function onPlayerStateChange(event) {
+  // Ad detection: pre-roll ads report a different video_id than the stream.
+  // Reloading the actual stream skips the ad. Guard with a 3s cooldown to
+  // prevent a reload loop if the check fires repeatedly.
+  if (event.data === YT.PlayerState.PLAYING) {
+    const videoData = player.getVideoData();
+    const now = Date.now();
+    if (
+      videoData.video_id &&
+      videoData.video_id !== GENRES[currentGenre].videoId &&
+      now - lastAdSkip > 3000
+    ) {
+      lastAdSkip = now;
+      player.loadVideoById(GENRES[currentGenre].videoId);
+      return;
+    }
+  }
+
   switch (event.data) {
     case YT.PlayerState.PLAYING:
       isPlaying = true;
@@ -87,7 +110,10 @@ function onPlayerError(event) {
 
 // ---- Controls ----
 function togglePlayPause() {
-  if (!playerReady) return;
+  if (!playerReady) {
+    pendingPlay = !pendingPlay;
+    return;
+  }
 
   if (isPlaying) {
     player.pauseVideo();
