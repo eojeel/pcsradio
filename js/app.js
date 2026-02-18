@@ -3,10 +3,12 @@
    ============================================ */
 
 const GENRES = {
-  lofi: { name: 'Lofi', videoId: 'jfKfPfyJRdk' },
-  deephouse: { name: 'Deep House', videoId: 'D4MdHQOILdw' },
+  lofi: { name: 'Lofi', videoId: 'A8jDx9TLMQc' },
+  deephouse: { name: 'Deep House', videoId: 'WsDyRAPFBC8' },
   synthwave: { name: 'Synthwave', videoId: '4xDzrJKXOOY' },
   ambient: { name: 'Ambient', videoId: 'Y4u7D7xCvtw' },
+  Jazz: { name: 'Jazz', videoId: 'A8jDx9TLMQc' },
+  classical: { name: 'Classical', videoId: 'jXAEIWcGXwE' },
 };
 
 let player = null;
