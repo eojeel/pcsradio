@@ -23,10 +23,6 @@
     Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 }
 
-html {
-  font-size: 16px;
-}
-
 body {
   font-family: var(--font-stack);
   background: var(--bg-deeper);
@@ -117,7 +113,7 @@ body {
   border-radius: 8px;
   color: var(--white-muted);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   font-family: inherit;
 }
 
@@ -233,7 +229,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
   font-family: inherit;
 }
 
@@ -273,7 +269,7 @@ body {
 
 .play-btn.playing {
   background: var(--teal);
-  box-shadow: 0 0 25px var(--teal-glow), 0 0 50px rgba(189, 36, 38, 0.2);
+  box-shadow: 0 0 25px var(--teal-glow), 0 0 50px var(--teal-glow);
 }
 
 /* ---- Volume Display ---- */

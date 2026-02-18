@@ -44,7 +44,7 @@ Then add/update the corresponding `.preset` button in `index.html` with a matchi
 
 ### Service worker
 
-`sw.js` caches static assets on install (`CACHE_NAME = 'pcs-radio-v1'`). Bump the cache name when deploying changes to force clients to update. YouTube/external URLs bypass the cache entirely.
+`sw.js` caches static assets on install (`CACHE_NAME = 'pcs-radio-v2'`). Bump the cache name when deploying changes to force clients to update. YouTube/external URLs bypass the cache entirely.
 
 ### Regenerating icons
 

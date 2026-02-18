@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#37b48f">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="description" content="PCSpecialist Radio - 24/7 music streams across 4 genres">
+  <meta name="description" content="PCSpecialist Radio - 24/7 music streams across 8 genres">
   <title>PCSpecialist Radio</title>
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="favicon.ico">
@@ -51,13 +51,29 @@
           <span class="preset-number">4</span>
           <span class="preset-label">Ambient</span>
         </button>
+        <button class="preset" data-genre="jazz">
+          <span class="preset-number">5</span>
+          <span class="preset-label">Jazz</span>
+        </button>
+        <button class="preset" data-genre="classical">
+          <span class="preset-number">6</span>
+          <span class="preset-label">Classical</span>
+        </button>
+        <button class="preset" data-genre="rock">
+          <span class="preset-number">7</span>
+          <span class="preset-label">Rock</span>
+        </button>
+        <button class="preset" data-genre="drumNbass">
+          <span class="preset-number">8</span>
+          <span class="preset-label">Drum &amp; Bass</span>
+        </button>
       </section>
 
       <!-- Now Playing -->
       <section class="now-playing">
         <div class="now-playing-label">NOW PLAYING</div>
         <div class="now-playing-genre" id="current-genre">Lofi</div>
-        <div class="status-indicator" id="status-indicator">
+        <div class="status-indicator">
           <span class="status-dot"></span>
           <span class="status-text" id="status-text">Ready</span>
         </div>

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pcs-radio-v1';
+const CACHE_NAME = 'pcs-radio-v2';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -9,12 +9,13 @@ const STATIC_ASSETS = [
   '/icons/icon-512.png',
 ];
 
-// Install - cache static assets
+// Install - cache static assets, then skip waiting so the new SW activates immediately
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(STATIC_ASSETS))
+      .then(() => self.skipWaiting())
   );
-  self.skipWaiting();
 });
 
 // Activate - clean old caches

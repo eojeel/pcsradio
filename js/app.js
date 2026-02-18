@@ -7,8 +7,10 @@ const GENRES = {
   deephouse: { name: 'Deep House', videoId: 'WsDyRAPFBC8' },
   synthwave: { name: 'Synthwave', videoId: '4xDzrJKXOOY' },
   ambient: { name: 'Ambient', videoId: 'Y4u7D7xCvtw' },
-  Jazz: { name: 'Jazz', videoId: 'A8jDx9TLMQc' },
+  jazz: { name: 'Jazz', videoId: 'A8jDx9TLMQc' },
   classical: { name: 'Classical', videoId: 'jXAEIWcGXwE' },
+  rock: { name: 'Rock', videoId: 'Nt27aBceerI' },
+  drumNbass: { name: 'Drum & Bass', videoId: 'Cwq3AFyV044' },
 };
 
 let player = null;
@@ -74,15 +76,24 @@ function muteUntilStream() {
   const expectedId = GENRES[currentGenre].videoId;
   player.mute();
   clearInterval(adWatcher);
+
+  // Failsafe: unmute after 30s regardless, so the player never stays silent
+  const failsafe = setTimeout(unmutePlayer, 30_000);
+
   adWatcher = setInterval(() => {
     const data = player.getVideoData();
     if (data && data.video_id === expectedId) {
       clearInterval(adWatcher);
+      clearTimeout(failsafe);
       adWatcher = null;
-      player.unMute();
-      player.setVolume(volume);
+      unmutePlayer();
     }
   }, 300);
+}
+
+function unmutePlayer() {
+  player.unMute();
+  player.setVolume(volume);
 }
 
 function onPlayerStateChange(event) {
@@ -98,6 +109,8 @@ function onPlayerStateChange(event) {
       now - lastAdSkip > 3000
     ) {
       lastAdSkip = now;
+      isPlaying = true;
+      updatePlayButton();
       player.loadVideoById(GENRES[currentGenre].videoId);
       return;
     }
@@ -124,7 +137,10 @@ function onPlayerStateChange(event) {
   }
 }
 
-function onPlayerError(event) {
+function onPlayerError() {
+  clearInterval(adWatcher);
+  adWatcher = null;
+  unmutePlayer();
   isPlaying = false;
   updatePlayButton();
   setStatus('error', 'Station Offline');
@@ -221,9 +237,10 @@ document.addEventListener('keydown', (e) => {
   } else if (e.code === 'ArrowDown') {
     e.preventDefault();
     changeVolume(-10);
-  } else if (e.key >= '1' && e.key <= '4') {
+  } else if (e.key >= '1' && e.key <= '8') {
     const genres = Object.keys(GENRES);
-    switchGenre(genres[parseInt(e.key) - 1]);
+    const idx = parseInt(e.key) - 1;
+    if (idx < genres.length) switchGenre(genres[idx]);
   }
 });
 
