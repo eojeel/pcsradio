@@ -1,0 +1,357 @@
+/* ============================================
+   PCSpecialist Radio - Styles
+   ============================================ */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-dark: #313131;
+  --bg-deeper: #1a1a1a;
+  --bg-card: #2a2a2a;
+  --white: #ffffff;
+  --white-muted: #b0b0b0;
+  --teal: #37b48f;
+  --teal-glow: rgba(55, 180, 143, 0.4);
+  --teal-hover: #3fcba1;
+  --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-stack);
+  background: var(--bg-deeper);
+  color: var(--white);
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hidden YouTube Player */
+#youtube-container {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---- App Shell ---- */
+.app {
+  width: 100%;
+  max-width: 420px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-dark);
+  padding: 2rem 1.5rem;
+}
+
+/* ---- Header ---- */
+.app-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.brand-icon {
+  flex-shrink: 0;
+}
+
+.brand h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.brand .accent {
+  color: var(--teal);
+}
+
+.tagline {
+  color: var(--white-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-top: 0.25rem;
+}
+
+/* ---- Genre Presets ---- */
+.genre-presets {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.preset {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.75rem 0.25rem;
+  background: var(--bg-deeper);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  color: var(--white-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.preset:hover {
+  background: var(--bg-card);
+  color: var(--white);
+}
+
+.preset.active {
+  border-color: var(--teal);
+  color: var(--white);
+  background: var(--bg-card);
+}
+
+.preset-number {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.preset.active .preset-number {
+  color: var(--teal);
+}
+
+.preset-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* ---- Now Playing ---- */
+.now-playing {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.now-playing-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--white-muted);
+  margin-bottom: 0.5rem;
+}
+
+.now-playing-genre {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--white-muted);
+  transition: background 0.3s ease;
+}
+
+.status-dot.live {
+  background: var(--teal);
+  box-shadow: 0 0 6px var(--teal-glow);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.status-dot.buffering {
+  background: #f0a500;
+  animation: pulse 0.8s ease-in-out infinite;
+}
+
+.status-dot.error {
+  background: #666;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.status-text {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--white-muted);
+}
+
+/* ---- Transport Controls ---- */
+.transport {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.vol-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--bg-deeper);
+  border: 2px solid var(--bg-card);
+  color: var(--white-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.vol-btn:hover {
+  background: var(--bg-card);
+  color: var(--white);
+  border-color: var(--white-muted);
+}
+
+.vol-btn:active {
+  transform: scale(0.95);
+}
+
+.play-btn {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--bg-deeper);
+  border: 3px solid var(--teal);
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.play-btn:hover {
+  background: var(--teal);
+  box-shadow: 0 0 20px var(--teal-glow);
+}
+
+.play-btn:active {
+  transform: scale(0.95);
+}
+
+.play-btn.playing {
+  background: var(--teal);
+  box-shadow: 0 0 25px var(--teal-glow), 0 0 50px rgba(189, 36, 38, 0.2);
+}
+
+/* ---- Volume Display ---- */
+.volume-display {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 1rem;
+  margin-bottom: 2rem;
+}
+
+.volume-track {
+  flex: 1;
+  height: 6px;
+  background: var(--bg-deeper);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.volume-fill {
+  height: 100%;
+  background: var(--teal);
+  border-radius: 3px;
+  transition: width 0.15s ease;
+}
+
+.volume-label {
+  font-size: 0.75rem;
+  color: var(--white-muted);
+  min-width: 2.5rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Footer ---- */
+.app-footer {
+  margin-top: auto;
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.app-footer p {
+  font-size: 0.65rem;
+  color: var(--white-muted);
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+}
+
+/* ---- Responsive ---- */
+@media (min-width: 480px) {
+  body {
+    padding: 1rem;
+  }
+
+  .app {
+    min-height: auto;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@media (max-width: 340px) {
+  .genre-presets {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .transport {
+    gap: 1rem;
+  }
+
+  .play-btn {
+    width: 68px;
+    height: 68px;
+  }
+
+  .vol-btn {
+    width: 44px;
+    height: 44px;
+  }
+}

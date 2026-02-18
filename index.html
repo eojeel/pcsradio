@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#37b48f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="PCSpecialist Radio - 24/7 music streams across 4 genres">
+  <title>PCSpecialist Radio</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Hidden YouTube Player -->
+  <div id="youtube-container">
+    <div id="yt-player"></div>
+  </div>
+
+  <div class="app">
+    <header class="app-header">
+      <div class="brand">
+        <svg class="brand-icon" viewBox="0 0 40 40" width="40" height="40">
+          <circle cx="20" cy="20" r="18" fill="none" stroke="#37b48f" stroke-width="2"/>
+          <circle cx="20" cy="20" r="12" fill="none" stroke="#37b48f" stroke-width="1.5" opacity="0.7"/>
+          <circle cx="20" cy="20" r="6" fill="#37b48f"/>
+        </svg>
+        <h1>PCS<span class="accent">Radio</span></h1>
+      </div>
+      <p class="tagline">24/7 Music Streams</p>
+    </header>
+
+    <main>
+      <!-- Genre Presets -->
+      <section class="genre-presets">
+        <button class="preset active" data-genre="lofi">
+          <span class="preset-number">1</span>
+          <span class="preset-label">Lofi</span>
+        </button>
+        <button class="preset" data-genre="deephouse">
+          <span class="preset-number">2</span>
+          <span class="preset-label">Deep House</span>
+        </button>
+        <button class="preset" data-genre="synthwave">
+          <span class="preset-number">3</span>
+          <span class="preset-label">Synthwave</span>
+        </button>
+        <button class="preset" data-genre="ambient">
+          <span class="preset-number">4</span>
+          <span class="preset-label">Ambient</span>
+        </button>
+      </section>
+
+      <!-- Now Playing -->
+      <section class="now-playing">
+        <div class="now-playing-label">NOW PLAYING</div>
+        <div class="now-playing-genre" id="current-genre">Lofi</div>
+        <div class="status-indicator" id="status-indicator">
+          <span class="status-dot"></span>
+          <span class="status-text" id="status-text">Ready</span>
+        </div>
+      </section>
+
+      <!-- Transport Controls -->
+      <section class="transport">
+        <button class="vol-btn" id="vol-down" aria-label="Volume Down">
+          <svg viewBox="0 0 24 24" width="28" height="28">
+            <path d="M3 9v6h4l5 5V4L7 9H3z" fill="currentColor"/>
+          </svg>
+        </button>
+
+        <button class="play-btn" id="play-pause" aria-label="Play">
+          <svg class="icon-play" id="icon-play" viewBox="0 0 24 24" width="40" height="40">
+            <path d="M8 5v14l11-7z" fill="currentColor"/>
+          </svg>
+          <svg class="icon-pause" id="icon-pause" viewBox="0 0 24 24" width="40" height="40" style="display:none">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="currentColor"/>
+          </svg>
+        </button>
+
+        <button class="vol-btn" id="vol-up" aria-label="Volume Up">
+          <svg viewBox="0 0 24 24" width="28" height="28">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" fill="currentColor"/>
+          </svg>
+        </button>
+      </section>
+
+      <!-- Volume Bar -->
+      <section class="volume-display">
+        <div class="volume-track">
+          <div class="volume-fill" id="volume-fill" style="width:50%"></div>
+        </div>
+        <span class="volume-label" id="volume-label">50%</span>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>Powered by YouTube &bull; Built for PCSpecialist</p>
+    </footer>
+  </div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
